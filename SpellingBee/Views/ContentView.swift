@@ -12,6 +12,7 @@ struct ContentView: View {
     
     // MARK: Stored properties
     @State var currentItem = itemsToSpell.randomElement()!
+    @State var inputGiven = ""
     
     // MARK: Computed properties
     var body: some View {
@@ -40,6 +41,14 @@ struct ContentView: View {
                     synthesizer.speak(utterance)
                     
                 }
+            
+            TextField("Enter your answer🐝",
+                      text: $inputGiven)
+                .padding(.horizontal, 30)
+                .foregroundColor(Color.yellow)
+                .accentColor(.yellow)
+                .font(.custom("Courier New", size: 30).bold())
+                .multilineTextAlignment(TextAlignment.center)
             
         }
         
