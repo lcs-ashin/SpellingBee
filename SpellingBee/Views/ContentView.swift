@@ -13,8 +13,14 @@ struct ContentView: View {
     // MARK: Stored properties
     @State var currentItem = itemsToSpell.randomElement()!
     @State var inputGiven = ""
+    @State var answerChecked = false
+    @State var answerCorrect = false
     
     // MARK: Computed properties
+    // Correct Answer
+    var correctSpelling: String {
+        return currentItem.word
+    }
     var body: some View {
         
         VStack {
@@ -49,6 +55,40 @@ struct ContentView: View {
                 .accentColor(.yellow)
                 .font(.custom("Courier New", size: 30).bold())
                 .multilineTextAlignment(TextAlignment.center)
+            
+            
+            // Check Button
+            Button(action: {
+                
+                // Answer has been checked!
+                answerChecked = true
+                
+                // Check the answer!
+                if inputGiven == correctSpelling {
+                    answerCorrect = true
+                } else {
+                    answerCorrect = false
+                }
+            }, label: {
+                Text("Check Answer")
+                    .font(.body)
+                    .foregroundColor(Color.yellow)
+            })
+                .buttonStyle(.bordered)
+            
+            ZStack {
+                Image(systemName: "checkmark.circle")
+                    .foregroundColor(.green)
+                //        CONDITION      true  false
+                    .opacity(answerCorrect == true ? 1.0 : 0.0)
+                
+                Image(systemName: "x.square")
+                    .foregroundColor(.red)
+                //        CONDITION1         AND     CONDITION2         true  false
+                //       answerChecked = true     answerCorrect = false
+                    .opacity(answerChecked == true && answerCorrect == false ? 1.0 : 0.0)
+            }
+            .font(.system(size: 40))
             
         }
         
