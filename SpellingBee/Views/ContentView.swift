@@ -55,6 +55,7 @@ struct ContentView: View {
                 .accentColor(.yellow)
                 .font(.custom("Courier New", size: 30).bold())
                 .multilineTextAlignment(TextAlignment.center)
+                .autocapitalization(.none)
             
             
             // Check Button
@@ -72,7 +73,7 @@ struct ContentView: View {
             }, label: {
                 Text("Check Answer")
                     .font(.body)
-                    .foregroundColor(Color.yellow)
+                    .foregroundColor(Color.black)
             })
                 .buttonStyle(.bordered)
             
