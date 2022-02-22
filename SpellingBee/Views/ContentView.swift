@@ -57,25 +57,51 @@ struct ContentView: View {
                 .multilineTextAlignment(TextAlignment.center)
                 .autocapitalization(.none)
             
-            
-            // Check Button
-            Button(action: {
+            // Buttons
+            ZStack {
+                // Check Button
+                Button(action: {
+                    
+                    // Answer has been checked!
+                    answerChecked = true
+                    
+                    // Check the answer!
+                    if inputGiven == correctSpelling {
+                        answerCorrect = true
+                    } else {
+                        answerCorrect = false
+                    }
+                }, label: {
+                    Text("Check Answer")
+                        .font(.body)
+                        .foregroundColor(Color.black)
+                })
+                    .buttonStyle(.bordered)
+                // Only show this button when an answer has not been checked
+                    .opacity(answerChecked == false ? 1.0 : 0.0)
                 
-                // Answer has been checked!
-                answerChecked = true
-                
-                // Check the answer!
-                if inputGiven == correctSpelling {
-                    answerCorrect = true
-                } else {
+                // New Question Button
+                Button(action: {
+                    // Generate a new question
+                    currentItem = itemsToSpell.randomElement()!
+                    
+                    // Reset properties that track what's happening with the current question
+                    answerChecked = false
                     answerCorrect = false
-                }
-            }, label: {
-                Text("Check Answer")
-                    .font(.body)
-                    .foregroundColor(Color.black)
-            })
-                .buttonStyle(.bordered)
+                    
+                    // Reset the input field
+                    inputGiven = ""
+                }, label: {
+                    Text("New question")
+                        .font(.body)
+                        .foregroundColor(Color.black)
+                })
+                    .padding()
+                    .buttonStyle(.bordered)
+                // Only show this button when an answer has been checked
+                    .opacity(answerChecked == true ? 1.0 : 0.0)
+
+            }
             
             ZStack {
                 Image(systemName: "checkmark.circle")
